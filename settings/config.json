@@ -4,7 +4,10 @@
   },
   "data_indexer_config": {
     "restaurant_table_name": "public.restaurants",
-    "restaurant_table_columns": ["name", "image", "description", "rate", "type", "distance", "kosher", "address", "is_open_for_delivery", "activity_hours"],
+    "users_table_name": "public.people",
+    "restaurant_table_columns": ["name", "image", "description", "rate", "food_type", "distance", "kosher", "address", "is_open_for_delivery", "activity_hours"],
+    "users_table_columns": ["user_id", "image", "name"],
+    "users_file": "files/users",
     "postgres_config": {
       "database": "postgres",
       "user": "postgres",

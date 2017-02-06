@@ -10,6 +10,7 @@ from schemas import interest_schema
 from slack_handler import notify_slack
 from storage import Storage
 from flask import request
+import random
 
 DEFAULT_IS_KOSHER = False
 DEFAULT_MAX_DISTANCE = 5000
@@ -34,7 +35,7 @@ def get_args():
         pass
 
     try:
-        food_type = '%' + request.args.get('food_type') + '%'
+        food_type = request.args.get('food_type')
     except Exception:
         pass
 
@@ -50,6 +51,7 @@ def index():
 def restaurants():
     distance, is_kosher, food_type = get_args()
     restaurants = storage.get(queries.GET_FILTERED_RESTAURANTS, (distance, is_kosher, food_type))
+    random.shuffle(restaurants)
 
     return Response(json.dumps(restaurants),
                     status=200, mimetype=APPLICATION_JSON)

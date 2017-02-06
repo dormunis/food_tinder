@@ -1,6 +1,6 @@
 import os
 
-from dal.data_indexer import RestaurantsIndexer
+from dal.data_indexer import Indexer
 from dal.data_loader import RestaurantLoader
 from utils import json_loader
 
@@ -14,9 +14,9 @@ def main():
     loader = RestaurantLoader(config["data_loader_config"])
     restaurants = loader.load_restaurants_from_json()
 
-    indexer = RestaurantsIndexer(config["data_indexer_config"])
-    indexer.index(restaurants)
-
+    indexer = Indexer(config["data_indexer_config"])
+    # indexer.index_restaurants(restaurants)
+    indexer.index_users()
 
 if __name__ == "__main__":
     main()
