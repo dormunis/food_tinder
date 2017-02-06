@@ -5,3 +5,4 @@ interest_schema = Schema({
     'rest_id': basestring,
     Optional('going'): bool
 })
+
