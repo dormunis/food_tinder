@@ -13,6 +13,7 @@ from flask import request
 
 DEFAULT_IS_KOSHER = False
 DEFAULT_MAX_DISTANCE = 5000
+DEFAULT_FOOD_TYPE = ""
 
 app = Flask("FoodTinder")
 
@@ -24,6 +25,7 @@ def __init__(self, storage_settings):
 def get_args():
     distance = DEFAULT_MAX_DISTANCE
     is_kosher = DEFAULT_IS_KOSHER
+    food_type = DEFAULT_FOOD_TYPE
 
     try:
         is_kosher = True if request.args.get('kosher') == 'true' else False
@@ -35,7 +37,12 @@ def get_args():
     except Exception:
         pass
 
-    return distance, is_kosher
+    try:
+        food_type = '%' + request.args.get('food_type') + '%'
+    except Exception:
+        pass
+
+    return distance, is_kosher, food_type
 
 
 @app.route('/', methods=['GET'])
@@ -45,8 +52,8 @@ def index():
 
 @app.route('/api/restaurants', methods=['GET'])
 def restaurants():
-    distance, is_kosher = get_args()
-    restaurants = storage.get(queries.GET_FILTERED_RESTAURANTS, (distance, is_kosher))
+    distance, is_kosher, food_type = get_args()
+    restaurants = storage.get(queries.GET_FILTERED_RESTAURANTS, (distance, is_kosher, food_type))
 
     return Response(json.dumps(restaurants),
                     status=200, mimetype=APPLICATION_JSON)
