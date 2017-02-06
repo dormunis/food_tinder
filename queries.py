@@ -1,7 +1,6 @@
 GET_ALL_RESTAURANTS = 'SELECT * FROM restaurants;'
 
-GET_FILTERED_RESTAURANTS = 'SELECT * FROM restaurants WHERE distance < %s AND kosher is %s;'
-
+GET_FILTERED_RESTAURANTS = 'SELECT * FROM restaurants WHERE distance < %s AND kosher is %s AND food_type like %s;'
 
 INSERT_INTERESTED = 'INSERT INTO interested ({keys}) values ({values});'
 GET_ALL_RELEVANT_MATCHES = """
