@@ -14,11 +14,8 @@ def main():
     loader = RestaurantLoader(config["data_loader_config"])
     restaurants = loader.load_restaurants_from_json()
 
-    indexer = RestaurantsIndexer(config["data_indexer_config"])
+    indexer = RestaurantsIndexer(config["data_indexer_config"], config["postgres_config"])
     indexer.index(restaurants)
-    print 3
-    # Get and index blacklist
-    # indexer.index(filtered_domains_removed_contains)
 
 
 if __name__ == "__main__":

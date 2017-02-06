@@ -2,13 +2,13 @@
   "data_loader_config": {
     "restaurant_input_file": ["files/tenbis.json", "files/tenbis1.json", "files/tenbis2.json", "files/tenbis3.json"]
   },
+  "postgres_config": {
+    "database": "postgres",
+    "user": "postgres",
+    "host": "13.67.189.101",
+    "port": "8080"
+  },
   "data_indexer_config": {
-    "postgres_config": {
-      "database": "postgres",
-      "user": "postgres",
-      "host": "13.67.189.101",
-      "port": "8080"
-    },
     "restaurant_table_name": "public.restaurants",
     "restaurant_table_columns": ["name", "image", "description", "rate", "type", "distance", "kosher"]
   }

@@ -8,8 +8,8 @@ class Storage(object):
         self.conn = psycopg2.connect(**postgres_settings)
         self.cursor = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-    def get(self, query):
-        self.cursor.execute(query)
+    def get(self, query, vars=()):
+        self.cursor.execute(query, vars)
         try:
             return self.cursor.fetchall()
         except psycopg2.ProgrammingError, e:

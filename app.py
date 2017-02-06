@@ -8,13 +8,33 @@ from config import postgres_settings
 from consts import USERS, APPLICATION_JSON
 from schemas import interest_schema
 from storage import Storage
+from flask import request
 
+DEFAULT_IS_KOSHER = False
+DEFAULT_MAX_DISTANCE = 5000
 
 app = Flask("FoodTinder")
 
 
 def __init__(self, storage_settings):
     self.storage = Storage(storage_settings)
+
+
+def get_args():
+    distance = DEFAULT_MAX_DISTANCE
+    is_kosher = DEFAULT_IS_KOSHER
+
+    try:
+        is_kosher = True if request.args.get('kosher') == 'true' else False
+    except Exception:
+        pass
+
+    try:
+        distance = int(request.args.get('distance'))
+    except Exception:
+        pass
+
+    return distance, is_kosher
 
 
 @app.route('/', methods=['GET'])
@@ -24,7 +44,11 @@ def index():
 
 @app.route('/restaurants', methods=['GET'])
 def restaurants():
-    return Response(json.dumps(storage.get(queries.GET_ALL_RESTAURANTS)), status=200, mimetype=APPLICATION_JSON)
+    distance, is_kosher = get_args()
+    restaurants = storage.get(queries.GET_FILTERED_RESTAURANTS, (distance, is_kosher))
+
+    return Response(json.dumps(restaurants),
+                    status=200, mimetype=APPLICATION_JSON)
 
 
 @app.route('/interest', methods=['PUT'])
