@@ -6,7 +6,6 @@ from utils import json_loader
 class RestaurantLoader(object):
     def __init__(self, config):
         self.__restaurant_files = config["restaurant_input_file"]
-        self._postgres_config = config["postgres_config"]
 
     def load_restaurants_from_csv(self):
         restaurants = []
@@ -41,8 +40,11 @@ class RestaurantLoader(object):
                 food_type = restaurant_content["RestaurantCuisineList"].split(", ")
                 distance = restaurant_content["distanceFromUserInMeters"]
                 is_kosher = True if restaurant_content["IsKosher"] == "yes" else False
-
-                restaurant_content = Restaurant(name, image, description, rate, food_type, distance, is_kosher)
+                address = restaurant_content["RestaurantAddress"]
+                is_open_for_delivery = restaurant_content["IsOpenForDelivery"]
+                activity_hours = restaurant_content["ActivityHours"]
+                restaurant_content = Restaurant(name, image, description, rate, food_type, distance, is_kosher, address,
+                                                is_open_for_delivery, activity_hours)
                 restaurants.append(restaurant_content)
 
         return restaurants

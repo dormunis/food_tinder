@@ -14,7 +14,7 @@ def main():
     loader = RestaurantLoader(config["data_loader_config"])
     restaurants = loader.load_restaurants_from_json()
 
-    indexer = RestaurantsIndexer(config["data_indexer_config"], config["postgres_config"])
+    indexer = RestaurantsIndexer(config["data_indexer_config"])
     indexer.index(restaurants)
 
 
