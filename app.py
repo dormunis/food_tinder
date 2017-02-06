@@ -17,10 +17,6 @@ DEFAULT_MAX_DISTANCE = 5000
 app = Flask("FoodTinder")
 
 
-def __init__(self, storage_settings):
-    self.storage = Storage(storage_settings)
-
-
 def get_args():
     distance = DEFAULT_MAX_DISTANCE
     is_kosher = DEFAULT_IS_KOSHER
@@ -53,12 +49,14 @@ def restaurants():
 
 
 @app.route('/api/interest', methods=['PUT'])
-def put(request):
+def put():
     try:
         data = request.get_json(silent=True)
         interest_schema.validate(data)
-        keys, values = data.keys(), data.values()
+        keys, values = ','.join(data.keys()).encode('utf-8'), ','.join(map(lambda x: x.encode('utf-8'),
+                                                                           map(lambda x: "'%s'" % x, data.values())))
         storage.insert(queries.INSERT_INTERESTED.format(keys=keys, values=values))
+        return Response(json.dumps(dict(cool="bro")), status=200, mimetype=APPLICATION_JSON)
     except SchemaError, e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype=APPLICATION_JSON)
 
