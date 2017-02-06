@@ -27,4 +27,4 @@ FROM
           ) as user_data
     INNER JOIN restaurants as r ON r.name = user_data.restaurant_name
     GROUP BY r.name,r.image) as res
-ORDER BY res.length DESCs"""
+ORDER BY res.length DESC"""
