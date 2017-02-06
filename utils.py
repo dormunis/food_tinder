@@ -1,3 +1,4 @@
+import json
 import math
 from collections import namedtuple
 
@@ -19,3 +20,8 @@ def calculate_coordinates(p1, p2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     d = EARTH_RADIUS * c
     return d
+
+
+def json_loader(json_file):
+    with open(json_file) as f:
+        return json.load(f)
