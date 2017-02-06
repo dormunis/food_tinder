@@ -1,0 +1,1 @@
+30 14 * * * curl http://localhost:5000/gogogo

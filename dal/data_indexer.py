@@ -2,9 +2,9 @@ from postgres_connector import PostgresConnector
 
 
 class RestaurantsIndexer(object):
-    def __init__(self, config):
+    def __init__(self, config, postgres_config):
         self.__config = config
-        self.__postgres_config = config['postgres_config']
+        self.__postgres_config = postgres_config
         self.__restaurant_table_name = config["restaurant_table_name"]
         self.__restaurant_table_columns = self.__config["restaurant_table_columns"]
 

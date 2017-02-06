@@ -1,4 +1,8 @@
 GET_ALL_RESTAURANTS = 'SELECT * FROM restaurants;'
+
+GET_FILTERED_RESTAURANTS = 'SELECT * FROM restaurants WHERE distance < %s AND kosher is %s;'
+
+
 INSERT_INTERESTED = 'INSERT INTO interested ({keys}) values ({values});'
 GET_ALL_RELEVANT_MATCHES = """
 SELECT res.rest_name, res.rest_image, res.users
@@ -28,3 +32,4 @@ FROM
     INNER JOIN restaurants as r ON r.name = user_data.restaurant_name
     GROUP BY r.name,r.image) as res
 ORDER BY res.length DESC"""
+
